@@ -1,5 +1,4 @@
 #WEB library
-from turtle import right
 import streamlit.components.v1 as components
 from secrets import choice
 import streamlit as st
@@ -35,9 +34,6 @@ st.markdown("""
 
 """, unsafe_allow_html=True)
 
-
-
-
 FRAME_WINDOW = st.image([]) #frame window
 
 hhide_st_style = """ 
@@ -49,31 +45,28 @@ hhide_st_style = """
 st.markdown(hhide_st_style, unsafe_allow_html=True) #hide streamlit menu
 
 
-menu = ["HOME","MARK ATTENDANCE", "REGISTER HERE", "ATTENDANCE SHEET", "KNOW MORE"] #menu
+menu = ["HOME","MARK ATTENDANCE", "REGISTER", "ATTENDANCE SHEET", "KNOW MORE"] #menu
 choice = st.sidebar.selectbox("Menu", menu) #sidebar menu
 
-path = 'Register Data' #path to save image
+path = 'Register_Data' #path to save image
 images = [] #list of image
 classNames = [] #list of class
-classNames2 = []
 myList = os.listdir(path) #list of image
 
 
 col1, col2, col3 = st.columns(3) #columns
 cap = cv2.VideoCapture(0) #capture video
 if choice == 'MARK ATTENDANCE': 
-    st.markdown("<h2 style='text-align: center; color: black;'>ATTEDANCE SYSTEM</h2>", unsafe_allow_html=True) #title
+    st.markdown("<h2 style='text-align: center; color: black;'>ATTEDANCE  SYSTEM</h2>", unsafe_allow_html=True) #title
     with col1: #column 1
         st.subheader("MARK ATTENDANCE")
-        run = st.button("MARK YOUR PRESENCE")
-        
+        run = st.checkbox("MARK YOUR PRESENCE") #checkbox
     if run == True:
         for cl in myList: #loop
             curlImg = cv2.imread(f'{path}/{cl}') #read image
             images.append(curlImg)
             classNames.append(os.path.splitext(cl)[0]) #split image name
         print(classNames)
-  
 
         def findEncodings(images): #find encoding
             encodeList = []
@@ -93,7 +86,8 @@ if choice == 'MARK ATTENDANCE':
                 if name not in nameList:
                     now = datetime.now()
                     dtString = now.strftime('%H:%M:%S')
-                    f.writelines(f'\n{name},{dtString}')
+                    dStr = now.strftime('%d:%m:%Y')
+                    f.writelines(f'\n{name},{dtString},{dStr}')
 
         encodeListUnkown = findEncodings(images)
         print('encoding complate!')
@@ -116,8 +110,8 @@ if choice == 'MARK ATTENDANCE':
                 if matches[matchesIndex]:
                     name = classNames[matchesIndex].upper()
                     print(name)
-                    cv2.rectangle(img,(x1,y1),(x2,y2),(102,255,102),2)
-                    cv2.rectangle(img,(x1,y2-35),(x2,y2),(102,255,102),cv2.FILLED)
+                    cv2.rectangle(img,(x1,y1),(x2,y2),(0,255,0),2)
+                    cv2.rectangle(img,(x1,y2-35),(x2,y2),(0,255,0),cv2.FILLED)
                     cv2.putText(img,name,(x1+6,y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),2)
                     faceList(name)
 
@@ -126,17 +120,17 @@ if choice == 'MARK ATTENDANCE':
                 else:
                     y1,x2,y2,x1 = faceLoc
                     y1,x2,y2,x1 = y1*4,x2*4,y2*4,x1*4
-                    cv2.rectangle(img,(x1,y1),(x2,y2),(255,102,102),2)
-                    cv2.rectangle(img,(x1,y2-35),(x2,y2),(255,102,102),cv2.FILLED)
+                    cv2.rectangle(img,(x1,y1),(x2,y2),(0,0,255),2)
+                    cv2.rectangle(img,(x1,y2-35),(x2,y2),(0,0,255),cv2.FILLED)
                     cv2.putText(img,"Unknown",(x1+6,y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),2)
             FRAME_WINDOW.image(img)
             cv2.waitKey(1)
     else:
         pass
 #register menu
-elif choice == 'REGISTER HERE':
+elif choice == 'REGISTER':
     with col2:
-        st.subheader("REGISTER HERE")
+        st.subheader("REGISTER")
     def load_image(image_file):
         img = Image.open(image_file)
         return img
@@ -146,7 +140,7 @@ elif choice == 'REGISTER HERE':
         file_details = {"FileName":image_file.name,"FileType":image_file.type}
         st.write(file_details)
         img = load_image(image_file)
-        with open(os.path.join("Register Data",image_file.name),"wb") as f: 
+        with open(os.path.join("Register_Data",image_file.name),"wb") as f: 
             f.write(image_file.getbuffer())         
         st.success("Saved File")
 
@@ -154,7 +148,7 @@ elif choice == 'REGISTER HERE':
 elif choice == 'ATTENDANCE SHEET':
     with col2:
         df = pd.read_csv('Attendance_Sheet.csv')
-        st.subheader("ATTENDANCE SHEET")
+        st.subheader("READ ATTENDANCE SHEET")
         df = pd.read_csv('Attendance_Sheet.csv')
         st.write(df)
 elif choice == 'HOME':
@@ -179,7 +173,7 @@ elif choice == 'HOME':
 
 """, unsafe_allow_html=True)
     with col1:
-        st.image("face-recogination.jpg",width=800, caption="Mark Your Attendance") 
+        st.image("face-recogination.jpg",width=800, caption="Advance Attendance System Using Face Recognition") 
 
 elif choice == "KNOW MORE":
     st.subheader("KNOW HERE HOW TO USE THIS SYSTEM")
@@ -190,3 +184,4 @@ elif choice == "KNOW MORE":
     st.subheader("o- This system is one time use system for now, so if you want to take attendance again so, you need to remove previous attendance sheet data and store it in another sheet else you can't take attendance of same person 2nd time.")
     st.subheader("o- I am planning to add attendance_in and attendance_out to measure the time for which a person are presence and also login system to watch the attendance sheet in near future, but for evaluation purpose I skip that part.")
     st.subheader("o- Thank you for using this Attendance Syatem.")
+        
