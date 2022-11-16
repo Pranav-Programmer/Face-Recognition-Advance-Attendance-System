@@ -2,12 +2,14 @@
 
 Step to run this project on system
 1. Download the code zip file and extract it.
-2. Then open the visual studio code and open this project folder there, which has Attendance_System.py file. please download all the library used in the project.
-3. All the library which I use are eaisly downloaded on anaconda powershell, so it is good to go into visual studio code through anaconda.
-4. After this open new terminal and run command.
+2. Then open the visual studio code and open this project folder there, which has Attendance_System.py file.
+3. Run command "pip install requirements.txt" in cmd.
+4. All the library which I use are eaisly downloaded on anaconda powershell, so it is good to go into visual studio code through anaconda.
+5. Anaconda is required to run streamlit.
+6. After this open new terminal and run command.
    "streamlit run Attendance_System.py"
-5. This will open the project in web browser and you can eaisly check all the functionality.
-6. Thank for reviewing my project.
+7. This will open the project in web browser and you can eaisly check all the functionality.
+8. Thank for reviewing my project.
 >![A1](https://user-images.githubusercontent.com/79044490/194722506-7c676ba1-8d40-467f-bba4-2db21e9332de.png)
 ![A3](https://user-images.githubusercontent.com/79044490/194722566-dd276a5a-7c82-45d7-97dd-687259213e00.png)
 ![A4](https://user-images.githubusercontent.com/79044490/194722583-1f1c2181-f1af-48f4-ae66-a9f1c0adae39.png)
