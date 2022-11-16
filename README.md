@@ -1,7 +1,7 @@
 # Face-Recognition-Advance-Attendance-System.github.io
 
-Step to run this project on system
-1. Download the code zip file and extract it.
+***Step to run this project on local system***
+1. Clone the repository in your system.
 2. Then open the visual studio code and open this project folder there, which has Attendance_System.py file.
 3. Run command "pip install requirements.txt" in cmd.
 4. All the library which I use are eaisly downloaded on anaconda powershell, so it is good to go into visual studio code through anaconda.
