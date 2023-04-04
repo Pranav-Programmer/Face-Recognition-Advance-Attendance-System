@@ -1,4 +1,4 @@
-# Face-Recognition-Advance-Attendance-System.github.io
+# Face-Recognition-Advance-Attendance-System
 
 ***Step to run this project on local system***
 1. Clone the repository in your system.
